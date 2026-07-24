@@ -5,7 +5,7 @@
     "ng": "ng",
     "prestart": "node set-env.js",
     "start": "ng serve",
-    "prebuild": "node set-env.js",
+    "prebuild": "node set-env.js && node patch-ssr.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
