@@ -1,0 +1,174 @@
+
+.date-display-card {
+  width: 250px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px 10px 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  //box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+  }
+
+  &:hover {
+    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+    transform: translateY(-3px) scale(1.02);
+
+    &::before {
+      left: 100%;
+    }
+
+    .date-main {
+      color: #ffffff;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .date-year {
+      color: #f0f0f0;
+    }
+
+    .date-day {
+      color: #e0e0e0;
+    }
+  }
+}
+
+.date-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 12px 20px !important;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.date-main {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+  margin-right: 16px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.date-year {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  margin-left: auto;
+  margin-right: 8px;
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.date-day {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  min-width: 60px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+// Responsive design
+@media (max-width: 480px) {
+  .date-display-card {
+    width: 280px;
+    height: 75px;
+  }
+
+  .date-main {
+    font-size: 22px;
+    margin-right: 12px;
+  }
+
+  .date-year {
+    font-size: 13px;
+    margin-right: 6px;
+  }
+
+  .date-day {
+    font-size: 11px;
+    min-width: 50px;
+  }
+}
+
+// Alternative color themes (you can switch these)
+.date-display-card {
+  // Ocean theme
+  // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  // Sunset theme
+  // background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+
+  // Forest theme
+  // background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+
+  // Night theme
+  // background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+// Responsive design
+@media (max-width: 480px) {
+  .date-display-card {
+    width: 280px;
+    height: 75px;
+  }
+
+  .date-main {
+    font-size: 20px;
+    margin-right: 12px;
+  }
+
+  .date-year {
+    font-size: 13px;
+    margin-right: 6px;
+  }
+
+  .date-day {
+    font-size: 11px;
+    min-width: 50px;
+  }
+}
+
+// Dark theme support
+@media (prefers-color-scheme: dark) {
+  .date-display-card {
+    background-color: #424242;
+    color: #fff;
+  }
+
+  .date-main {
+    color: #64b5f6;
+  }
+
+  .date-year {
+    color: #bbb;
+  }
+
+  .date-day {
+    color: #999;
+  }
+}

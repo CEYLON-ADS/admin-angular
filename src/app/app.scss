@@ -1,0 +1,16 @@
+.outer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.top {
+  height: auto;
+}
+
+.content {
+  flex: 1;
+  overflow: auto;
+}

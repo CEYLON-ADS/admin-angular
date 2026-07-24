@@ -1,0 +1,88 @@
+<div class="context">
+  <div class="row">
+    <div class="col-12 col-md-4 col-lg-3 outer">
+      <div class="inner one">
+        <div class="top">
+          <div class="top-left">
+            <div class="icon-wrap icon-wrap-one">
+              <mat-icon>attach_money</mat-icon>
+            </div>
+          </div>
+          <div class="top-right one-right">
+            <mat-icon *ngIf="data?.totalRevenue?.percentage>=0">trending_up</mat-icon>
+            <mat-icon *ngIf="data?.totalRevenue?.percentage<0">trending_down</mat-icon>
+            <span >  {{data?.totalRevenue?.percentage}} %</span>
+          </div>
+        </div>
+        <div class="bottom">
+          <p class="title">Total Revenue</p>
+          <h1 class="value"> {{data?.totalRevenue?.count}}  LKR</h1>
+          <p class="diff">vs Last Month</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4 col-lg-3 outer">
+      <div class="inner two">
+        <div class="top">
+          <div class="top-left">
+            <div class="icon-wrap icon-wrap-two">
+              <mat-icon>groups</mat-icon>
+            </div>
+          </div>
+          <div class="top-right two-right">
+            <mat-icon *ngIf="data?.activeUsers?.percentage>=0">trending_up</mat-icon>
+            <mat-icon *ngIf="data?.activeUsers?.percentage<0">trending_down</mat-icon>
+            <span >  {{data?.activeUsers?.percentage}} %</span>
+          </div>
+        </div>
+        <div class="bottom">
+          <p class="title">Active Users</p>
+          <h1 class="value">{{data?.activeUsers?.count}} </h1>
+          <p class="diff">vs Last Week</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4 col-lg-3 outer">
+      <div class="inner three">
+        <div class="top">
+          <div class="top-left">
+            <div class="icon-wrap icon-wrap-three">
+              <mat-icon>add_a_photo</mat-icon>
+            </div>
+          </div>
+          <div class="top-right three-right">
+            <mat-icon *ngIf="data?.totalAds?.percentage>=0">trending_up</mat-icon>
+            <mat-icon *ngIf="data?.totalAds?.percentage<0">trending_down</mat-icon>
+            <span >  {{data?.totalAds?.percentage}} %</span>
+          </div>
+        </div>
+        <div class="bottom">
+          <p class="title">Total Ads</p>
+          <h1 class="value">{{data?.totalAds?.count}} </h1>
+          <p class="diff">vs Last Month</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4 col-lg-3 outer">
+      <div class="inner four">
+        <div class="top">
+          <div class="top-left">
+            <div class="icon-wrap icon-wrap-four">
+              <mat-icon>visibility</mat-icon>
+            </div>
+          </div>
+          <div class="top-right four-right">
+            <mat-icon *ngIf="data?.systemVisits?.percentage>=0">trending_up</mat-icon>
+            <mat-icon *ngIf="data?.systemVisits?.percentage<0">trending_down</mat-icon>
+            <span >  {{data?.systemVisits?.percentage}} %</span>
+          </div>
+        </div>
+        <div class="bottom">
+          <p class="title">System Visits</p>
+          <h1 class="value">{{data?.systemVisits?.count}} </h1>
+          <p class="diff">vs Yesterday</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+
+.content {
+  flex: 1;
+  padding: 10px;
+  background-color: #f5f5f5;
+  // Empty content area as per design
+}
+.date-group {
+  display: inline-block;
+  margin-right: 20px;
+}
+.date-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.filter {
+  display: flex;
+  gap: 20px;
+  padding: 12px 16px;
+  background-color: #fafafa;
+  border-bottom: 1px solid #e0e0e0;
+
+  .filter-item {
+    display: inline-block;
+    margin-right: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+      font-size: 13px;
+      color: #555;
+    }
+
+    select,
+    input {
+      width: 100%;
+      padding: 6px 8px;
+      font-size: 13px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #fff;
+      transition: border-color 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #4a69bd;
+        box-shadow: 0 0 0 2px rgba(74, 105, 189, 0.15);
+      }
+    }
+  }
+}
+
+.chart{
+  max-width: 90vw;
+  border: 1px solid red;
+}

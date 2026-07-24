@@ -1,0 +1,77 @@
+<h2 mat-dialog-title> View Verified Advertisement</h2>
+
+<mat-dialog-content class="mat-typography">
+
+  <table class="user-table">
+    <tr>
+      <td>User Mobile Number</td>
+      <td>{{ slotAd.userMobileNumber }}</td>
+    </tr>
+    <tr>
+      <td>Category Name</td>
+      <td>{{ slotAd.categoryName }}</td>
+    </tr>
+    <tr>
+      <td>Title</td>
+      <td>{{ slotAd.title }}</td>
+    </tr>
+    <tr>
+      <td>Whatsapp</td>
+      <td>{{ slotAd.whatsapp ? 'Yes':'No' }}</td>
+    </tr>
+    <tr>
+      <td>Viber</td>
+      <td>{{ slotAd.viber ? 'Yes':'No' }}</td>
+    </tr>
+    <tr>
+      <td>Telegram</td>
+      <td>{{ slotAd.telegram ? 'Yes':'No' }}</td>
+    </tr>
+    <tr>
+      <td>Views</td>
+      <td>{{ slotAd.allViews }}</td>
+    </tr>
+    <tr>
+      <td>Likes</td>
+      <td>{{ slotAd.allLikes  }}</td>
+    </tr>
+    <tr>
+      <td>Fake add Reports</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Imo</td>
+      <td>{{ slotAd.imo ? 'Yes':'No' }}</td>
+    </tr>
+    <tr>
+      <td> Fake Add </td>
+      <td>{{ slotAd.isFake ? 'Yes':'No' }}</td>
+    </tr>
+    <tr>
+      <td>States</td>
+      <td>{{ slotAd.activeStatus ? 'Active' : 'Inactive' }}</td>
+    </tr>
+
+  </table>
+
+  <!--Images-->
+  <br>
+  <h6> Advertisement Images  </h6>
+  <!--Images-->
+  <div *ngIf="imageUrls" class="image-gallery">
+    <div *ngFor="let image of imageUrls" class="image-wrapper">
+      <img [src]="image.url" alt="Advertisement Image" class="ad-image" />
+    </div>
+  </div>
+
+  <div *ngIf="!imageUrls" class="no-images"> No images </div>
+
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+  <button matButton mat-dialog-close>Close</button>
+  <button matButton="filled"  (click)="fakeDialog()" style="background-color: var(--danger-color)" cdkFocusInitial>
+    Unmark as fake
+  </button>
+</mat-dialog-actions>

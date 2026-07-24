@@ -1,0 +1,7 @@
+<mat-slide-toggle
+  [checked]="category.activeStatus"
+  (change)="toggleStatus()"
+  [disabled]="loading">
+  {{ category.activeStatus ? 'Active' : 'Inactive' }}
+</mat-slide-toggle>
+

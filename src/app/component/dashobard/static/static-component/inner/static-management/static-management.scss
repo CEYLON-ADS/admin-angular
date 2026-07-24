@@ -1,0 +1,50 @@
+
+.header-container {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding-left: 60px;
+  border-bottom: 1px solid black;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: white;
+
+
+  .advertisement-title {
+    font-size: 18px;
+    font-weight: 400;
+    color: #B70555; // Purple/blue color matching the image
+    margin: 0;
+    padding: 12px 0;
+    position: relative;
+    letter-spacing: 0.025em;
+
+
+
+  }}
+
+// Responsive design
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 16px;
+
+    .advertisement-title {
+      font-size: 16px;
+      padding: 10px 0;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 16px;
+  }
+
+  .header-container {
+    .advertisement-title {
+      font-size: 15px;
+      padding: 8px 0;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<div class="outer">
+  <h1>Revenue Statistics</h1>
+  <hr>
+
+  <div class="button-bar">
+    <button
+      *ngFor="let category of categories"
+      [ngClass]="{ 'active': selectedCategory?.propertyId === category.propertyId }"
+      (click)="onCategoryClick(category)">
+      {{ category.categoryName }}
+    </button>
+  </div>
+
+  <app-category-revenue
+    *ngIf="selectedCategory"
+    [category]="selectedCategory">
+  </app-category-revenue>
+</div>

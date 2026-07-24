@@ -1,0 +1,61 @@
+<div class="advertisement-slot-form">
+  <h2 mat-dialog-title>Create City</h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="slotForm" class="slot-form">
+
+      <!-- City name Field (TEXTAREA) -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>City name (comma separated for multiple cities)</mat-label>
+        <textarea
+          matInput
+          formControlName="cityName"
+          placeholder="Enter city name"
+          maxlength="150"
+          rows="3">
+        </textarea>
+        <mat-error *ngIf="slotForm.get('cityName')!.hasError('required') && slotForm.get('cityName')!.touched">
+          City name is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- District autocomplete field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>District</mat-label>
+        <input
+          matInput
+          formControlName="districtName"
+          placeholder="Search and select district"
+          [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                          (optionSelected)="onCategorySelected($event.option.value)">
+          <mat-option *ngFor="let district of filteredDistricts | async" [value]="district">
+            {{ district.name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="slotForm.get('districtName')?.hasError('required') && slotForm.get('districtName')?.touched">
+          Please select a district
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <button
+      mat-button
+      (click)="onCancel()"
+      type="button">
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSave()"
+      [disabled]="slotForm.invalid || isLoading"
+      type="submit">
+      <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
+      {{ isLoading ? 'Saving...' : 'Save City' }}
+    </button>
+  </mat-dialog-actions>
+</div>

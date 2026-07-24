@@ -1,0 +1,7 @@
+<mat-slide-toggle
+  [checked]="slot.availability"
+  (change)="toggleStatus()"
+  [disabled]="loading">
+  {{ slot.availability ? 'Available' : 'Unavailable' }}
+</mat-slide-toggle>
+

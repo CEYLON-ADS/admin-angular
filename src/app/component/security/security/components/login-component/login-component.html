@@ -1,0 +1,83 @@
+<div class="outer">
+  <div class="login-container mat-elevation-z4">
+    <h2 class="title">Login/ Register</h2>
+    <br>
+    <hr>
+    <br>
+
+    <!-- Tab switcher -->
+    <div class="login-tabs" style="display: flex; margin-bottom: 20px; border-bottom: 1px solid #ddd; width: 100%;">
+      <button mat-button style="flex: 1; border-radius: 0; border-bottom: 2px solid transparent; font-weight: 500;" 
+              [style.border-bottom-color]="loginMode === 'otp' ? '#e11d48' : 'transparent'" 
+              [style.color]="loginMode === 'otp' ? '#e11d48' : '#666'"
+              (click)="setMode('otp')">WhatsApp OTP</button>
+      <button mat-button style="flex: 1; border-radius: 0; border-bottom: 2px solid transparent; font-weight: 500;" 
+              [style.border-bottom-color]="loginMode === 'password' ? '#e11d48' : 'transparent'" 
+              [style.color]="loginMode === 'password' ? '#e11d48' : '#666'"
+              (click)="setMode('password')">Password</button>
+    </div>
+
+    <!-- Phone Number Form -->
+    <div *ngIf="loginMode === 'otp'">
+      <h5 class="title2">Enter Phone Number</h5>
+      <p class="subtitle">
+        ඔබගේ දුරකතන අංකය ඇතුලත් කර <strong>Send OTP</strong> Click කරන්න.
+      </p>
+
+      <form class="phone-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="code-input">
+          <mat-select formControlName="code">
+            <mat-option *ngFor="let code of countryCodes" [value]="code">
+              {{ code }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="number-input">
+          <input matInput type="tel" formControlName="phone" placeholder="XXXXX" />
+        </mat-form-field>
+      </form>
+
+      <button
+        matButton="filled"
+        class="btn-full"
+        type="submit"
+        (click)="onSubmit()"
+        [disabled]="loginForm.invalid">
+        Send OTP
+      </button>
+    </div>
+
+    <!-- Password Form -->
+    <div *ngIf="loginMode === 'password'">
+      <h5 class="title2">Username & Password Login</h5>
+      <p class="subtitle">
+        කරුණාකර ඔබගේ පරිශීලක නාමය (Username) සහ මුරපදය (Password) ඇතුලත් කරන්න.
+      </p>
+
+      <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()" style="display: flex; flex-direction: column; gap: 8px;">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" formControlName="username" placeholder="Enter username" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" placeholder="Enter password" />
+        </mat-form-field>
+      </form>
+
+      <button
+        matButton="filled"
+        class="btn-full"
+        type="submit"
+        (click)="onPasswordSubmit()"
+        [disabled]="passwordForm.invalid">
+        Login
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!--routerLink="/security/verify"-->

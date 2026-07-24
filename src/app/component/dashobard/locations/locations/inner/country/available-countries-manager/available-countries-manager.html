@@ -1,0 +1,26 @@
+<button color="primary"  [matMenuTriggerFor]="menu" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+  <mat-icon>more_vert</mat-icon>
+</button>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="readMore()">
+    <mat-icon class="info">read_more</mat-icon>
+    <span class="info">Read more</span>
+  </button>
+  <button *ngIf="!data?.flag?.flagId" mat-menu-item routerLink="/dashboard/process/country-language/manage/flags/set-flag/{{this.data?.propertyId}}">
+    <mat-icon class="default">keyboard_double_arrow_right</mat-icon>
+    <span class="default">Manage Country Flag</span>
+  </button>
+  <button mat-menu-item (click)="manageLang()">
+    <mat-icon class="default">keyboard_double_arrow_right</mat-icon>
+    <span class="default">Languages Speak</span>
+  </button>
+  <button mat-menu-item (click)="updateBasicInfo()">
+    <mat-icon class="update">edit_note</mat-icon>
+    <span class="update">Update basic information</span>
+  </button>
+  <button mat-menu-item (click)="deleteCountry()">
+    <mat-icon class="delete">delete_sweep</mat-icon>
+    <span class="delete">Delete Country</span>
+  </button>
+</mat-menu>

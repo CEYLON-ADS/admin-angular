@@ -1,0 +1,81 @@
+.dialog-container {
+  padding: 0;
+  min-width: 400px;
+  max-width: 500px;
+
+  @media (max-width: 600px) {
+    min-width: 300px;
+    max-width: 90vw;
+  }
+}
+
+.dialog-subtitle {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.district-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+// Global styles for snackbars (add to global styles.scss)
+.success-snackbar {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+.error-snackbar {
+  background-color: #f44336 !important;
+  color: white !important;
+}
+
+// Dialog title styling
+h2[mat-dialog-title] {
+  font-weight: 500;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+// Form field styling
+mat-form-field {
+  &.full-width {
+    width: 100%;
+  }
+}
+
+// Button styling
+button[mat-raised-button] {
+  min-width: 120px;
+
+  mat-icon {
+    margin-right: 8px;
+    animation: spin 2s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Error message styling
+mat-error {
+  font-size: 12px;
+  margin-top: 4px;
+}

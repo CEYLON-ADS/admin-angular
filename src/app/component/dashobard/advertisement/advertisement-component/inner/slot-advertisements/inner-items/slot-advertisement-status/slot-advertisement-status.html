@@ -1,0 +1,6 @@
+<mat-slide-toggle
+  [checked]="slot.activeStatus"
+  (change)="toggleStatus()"
+  [disabled]="loading">
+  {{ slot.activeStatus ? 'Active' : 'Inactive' }}
+</mat-slide-toggle>

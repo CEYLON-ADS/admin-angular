@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Add New Districts</h2>
+<form [formGroup]="districtForm" (ngSubmit)="onSubmit()" class="district-form">
+  <mat-dialog-content class="mat-typography">
+
+    <!-- Country Select -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Select Country</mat-label>
+      <mat-select formControlName="countryId" required>
+        <mat-option *ngFor="let country of countries" [value]="country.propertyId">
+          {{ country.countryName }} ({{ country.dialCode }})
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="countryControl.invalid && countryControl.touched">
+        Country is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- District Names Textarea -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>District Names</mat-label>
+      <textarea
+        matInput
+        formControlName="names"
+        rows="5"
+        placeholder="Enter district names (comma or new line separated)">
+      </textarea>
+      <mat-error *ngIf="namesControl.invalid && namesControl.touched">
+        District names are required (at least 1)
+      </mat-error>
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCancel()" [disabled]="loading">
+      Cancel
+    </button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="districtForm.invalid || loading">
+      <mat-icon *ngIf="loading">hourglass_empty</mat-icon>
+      <span *ngIf="!loading">Add Districts</span>
+      <span *ngIf="loading">Adding...</span>
+    </button>
+  </mat-dialog-actions>
+</form>

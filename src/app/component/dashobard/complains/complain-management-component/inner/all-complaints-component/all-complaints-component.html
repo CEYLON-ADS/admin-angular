@@ -1,0 +1,74 @@
+<div class="search-row">
+  <div class="search">
+    <form (ngSubmit)="loadAll()">
+      <input type="search" placeholder="Search here" [(ngModel)]="searchText" name="search" (ngModelChange)="onSearchChange($event)">
+    </form>
+  </div>
+</div>
+
+<hr>
+
+<!-- Loading Spinner -->
+<div *ngIf="loading" class="loading-container">
+  <mat-spinner diameter="40"></mat-spinner>
+  <span class="loading-text">Loading complains...</span>
+</div>
+
+<table *ngIf="!loading" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="mobileNumber">
+    <th mat-header-cell *matHeaderCellDef> Mobile Number </th>
+    <td mat-cell *matCellDef="let element"> {{element.mobileNumber}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="createdAt">
+    <th mat-header-cell *matHeaderCellDef> Created Date </th>
+    <td mat-cell *matCellDef="let element"> {{ element.createdAt | date:'yyyy-MM-dd' }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="updatedAt">
+    <th mat-header-cell *matHeaderCellDef> Updated Date </th>
+    <td mat-cell *matCellDef="let element"> {{ element.updatedAt | date:'yyyy-MM-dd' }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tools">
+    <th mat-header-cell *matHeaderCellDef> Tools </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="tools">
+        <i class="fa-solid fa-eye view" aria-hidden="true" matTooltip="View User" (click)="viewUser(element)"></i>
+        <i class="fa-solid fa-pen update" matTooltip="Update User" (click)="updateUser(element)"></i>
+        <i class="fa-solid fa-user-times black-list" matTooltip="Black List User" aria-hidden="true" (click)="blackListConformation(element)"></i>
+        <i class="fa-solid fa-trash delete" matTooltip="Delete User" (click)="deleteUser(element)"></i>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <!-- No data row -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+      <div class="no-data-container">
+        <mat-icon class="no-data-icon">inbox</mat-icon>
+        <span>No complaints found</span>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<mat-paginator
+  [pageSize]="size"
+  [pageSizeOptions]="[5, 10, 25]"
+  [pageIndex]="page"
+  [length]="totalItems"
+  (page)="onPageChange($event)"
+  showFirstLastButtons
+></mat-paginator>
+
+
+<!--<button (click)="createComplaint()" > create complain </button>-->

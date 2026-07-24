@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>Create new Country</h2>
+<form [formGroup]="form" (ngSubmit)="createProgram()">
+  <mat-dialog-content class="mat-typography">
+
+    <mat-form-field class="full-width">
+      <mat-label>Country Name</mat-label>
+      <input type="text" matInput formControlName="countryName"
+             placeholder="Ex. United States">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Country Code (alpha-2)</mat-label>
+      <input type="text" matInput formControlName="countryCode"
+             placeholder="Ex. US">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Continent Code</mat-label>
+      <input type="text" matInput formControlName="continentCode"
+             placeholder="Ex. NA">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Continent Name</mat-label>
+      <input type="text" matInput formControlName="continentName"
+             placeholder="Ex. North America">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Capital</mat-label>
+      <input type="text" matInput formControlName="capital"
+             placeholder="Ex. Washington, D.C.">
+    </mat-form-field>
+
+
+    <mat-form-field class="full-width">
+      <mat-label>Dial Code</mat-label>
+      <input type="text" matInput formControlName="dialCode"
+             placeholder="Ex. +1">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Currency Code</mat-label>
+      <input type="text" matInput formControlName="currencyCode" autocapitalize="on"
+             placeholder="Ex. USD">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Currency Name</mat-label>
+      <input type="text" matInput formControlName="currencyName"
+             placeholder="Ex. United States dollar">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Currency Symbol</mat-label>
+      <input type="text" matInput formControlName="currencySymbol"
+             placeholder="Ex. $">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="closeDialog()" type="button">Cancel</button>
+    <button mat-raised-button color="primary" class="submit-button"
+            type="submit" [disabled]="form.invalid || loading">
+      <span *ngIf="!loading">Upload Country</span>
+    </button>
+  </mat-dialog-actions>
+</form>

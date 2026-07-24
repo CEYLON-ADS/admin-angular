@@ -1,0 +1,37 @@
+<div class="dashboard-stats-container" [@slideInUp]>
+  <div class="stats-grid">
+    <mat-card
+      *ngFor="let stat of statsData; trackBy: trackByTitle"
+      class="stat-card"
+      [class.positive]="stat.isPositive"
+      [class.negative]="!stat.isPositive">
+
+      <!-- Purple gradient top border -->
+      <div class="card-border"></div>
+
+      <!-- Card Content -->
+      <mat-card-content class="card-content">
+
+        <!-- Header with Icon and Change -->
+        <div class="card-header">
+          <div class="icon-container" [style.background]="stat.iconBackground">
+            <mat-icon class="stat-icon">{{stat.icon}}</mat-icon>
+          </div>
+
+          <div class="change-indicator" [class.positive]="stat.isPositive" [class.negative]="!stat.isPositive">
+            <mat-icon class="trend-icon">{{getChangeIcon(stat.isPositive)}}</mat-icon>
+            <span class="change-text">{{stat.changeText}}</span>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="card-main">
+          <h3 class="stat-title">{{stat.title}}</h3>
+          <div class="stat-value">{{stat.value}}</div>
+          <p class="stat-subtitle">{{stat.subtitle}}</p>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

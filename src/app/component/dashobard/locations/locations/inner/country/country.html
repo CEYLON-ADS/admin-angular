@@ -1,0 +1,173 @@
+<!-- country.component.html -->
+<div class="country-container">
+  <!-- Search and Toolbar Section -->
+  <div class="top-section">
+    <div class="search-section">
+      <form [formGroup]="searchForm">
+        <div class="search-wrapper">
+          <mat-icon class="search-icon">search</mat-icon>
+          <input
+            type="search"
+            formControlName="searchText"
+            placeholder="Search countries..."
+            class="search-input"
+            [disabled]="loading">
+        </div>
+      </form>
+    </div>
+
+    <div class="toolbar-section">
+      <app-available-countries-tool-bar
+        (dataloader)="onRefreshTable()">
+      </app-available-countries-tool-bar>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="content-section">
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-state">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <h3>Something went wrong</h3>
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" (click)="onRefreshTable()">
+        <mat-icon>refresh</mat-icon>
+        Try Again
+      </button>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="showEmptyState" class="empty-state">
+      <mat-icon class="empty-icon">location_on</mat-icon>
+      <h3>No Countries Found</h3>
+      <p *ngIf="paginationConfig.searchText; else noDataMessage">
+        No countries match your search criteria "{{ paginationConfig.searchText }}"
+      </p>
+      <ng-template #noDataMessage>
+        <p>Get started by adding your first country</p>
+      </ng-template>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onAddNewCountry()"
+        class="add-first-country-btn">
+        <mat-icon>add</mat-icon>
+        Add First Country
+      </button>
+    </div>
+
+    <!-- Data Table -->
+    <div *ngIf="hasCountries || loading" class="table-section">
+      <div class="table-container">
+        <table class="countries-table table" [class.loading]="loading">
+          <thead>
+          <tr>
+            <th class="index-column">#Index</th>
+            <th class="name-column">Country Name</th>
+            <th class="dial-column">Dial Code</th>
+            <th class="currency-column">Currency | Symbol</th>
+            <th class="status-column">Active Status</th>
+            <th class="date-column">Created Date</th>
+            <th class="actions-column">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let country of countries; index as i;"
+              class="country-row"
+              [class.even]="i % 2 === 0">
+
+            <td class="index-cell">
+              <div class="cell-content">
+                <span class="index-number">#{{ getDisplayIndex(i) }}</span>
+                <button
+                  mat-icon-button
+                  class="copy-btn"
+                  (click)="onCopyIndex(i)"
+                  title="Copy index">
+                  <mat-icon>content_copy</mat-icon>
+                </button>
+              </div>
+            </td>
+
+            <td class="name-cell">
+              <div class="cell-content">
+                  <span class="country-name" [title]="country.countryName">
+                    {{ country.countryName }}
+                  </span>
+              </div>
+            </td>
+
+            <td class="dial-cell">
+              <div class="cell-content">
+                <span class="dial-code">{{ country.dialCode }}</span>
+              </div>
+            </td>
+
+            <td class="currency-cell">
+              <div class="cell-content">
+                  <span class="currency-info">
+                    {{ country.currencyName }}
+                    <span class="currency-symbol" *ngIf="country.currencySymbol">
+                      | {{ country.currencySymbol }}
+                    </span>
+                  </span>
+              </div>
+            </td>
+
+            <td class="status-cell">
+              <div class="cell-content">
+                <app-available-countries-av-state-manager
+                  [data]="country"
+                  (emitter)="onRefreshTable()">
+                </app-available-countries-av-state-manager>
+              </div>
+            </td>
+
+            <td class="date-cell">
+              <div class="cell-content">
+                  <span class="created-date" [title]="country.createdDate | date:'full'">
+                    {{ country.createdDate | date:'MMM d, y, h:mm:ss a' }}
+                  </span>
+              </div>
+            </td>
+
+            <td class="actions-cell">
+              <div class="cell-content">
+                <!-- Add your action buttons here -->
+                <button mat-icon-button title="Edit country">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button title="Delete country">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <!-- Loading Skeleton -->
+        <ngx-skeleton-loader
+          *ngIf="loading"
+          [count]="skeletonConfig.count"
+          [animation]="skeletonConfig.animation"
+          [theme]="skeletonConfig.theme"
+          class="skeleton-loader">
+        </ngx-skeleton-loader>
+      </div>
+
+      <!-- Pagination -->
+      <mat-paginator
+        *ngIf="hasCountries"
+        [length]="totalCount"
+        [pageIndex]="paginationConfig.page"
+        [pageSize]="paginationConfig.size"
+        [pageSizeOptions]="pageSizeOptions"
+        [showFirstLastButtons]="true"
+        (page)="onPageChange($event)"
+        aria-label="Select page"
+        class="countries-paginator">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

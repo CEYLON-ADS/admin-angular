@@ -1,0 +1,95 @@
+.context{
+  width: 100%;
+}
+.inner{
+  width: 100%;
+  min-height: 180px;
+  border: 1px solid var(--gray-color);
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+.one:hover{
+  border-color: var(--dark-blue-color);
+}
+.two:hover{
+  border-color: var(--green-color);
+}
+.three:hover{
+  border-color: var(--red-color);
+}
+.four:hover{
+  border-color: var(--pos-gradientX);
+}
+.top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon-wrap{
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--light-color);
+  border-radius: 5px;
+  border-bottom-left-radius: 0;
+}
+
+.top-right{
+  display: flex;
+}
+
+
+.icon-wrap-one{
+  background-color: var(--dark-blue-color);
+}
+.icon-wrap-two{
+  background-color: var(--green-color);
+}
+.icon-wrap-three{
+  background-color: var(--red-color);
+}
+.icon-wrap-four{
+  background-color: var(--pos-gradientX);
+}
+
+.one{
+  border-top: 5px solid var(--dark-blue-color);
+}
+.two{
+  border-top: 5px solid var(--green-color);
+}
+.three{
+  border-top: 5px solid var(--red-color);
+}
+.four{
+  border-top: 5px solid var(--pos-gradientX);
+}
+
+
+.one-right{
+  color: var(--dark-blue-color);
+}
+.two-right{
+  color: var(--green-color);
+}
+.three-right{
+  color: var(--red-color);
+}
+.four-right{
+  color: var(--pos-gradientX);
+}
+
+.value{
+  margin-top: -5px;
+}
+.title{
+  margin: 0;
+  margin-top: 20px;
+}
+.diff{
+  margin: 0;
+}

@@ -1,0 +1,53 @@
+<div class="ad-categories-container">
+  <div class="header">
+    <h3 class="title">Revenue Trend</h3>
+  </div>
+
+  <div class="filter">
+    <!-- Category Filter -->
+    <div class="filter-item">
+      <label for="category">Select Category</label>
+      <select
+        id="category"
+        [(ngModel)]="selectedCategory"
+        (change)="getRevenueData()"
+      >
+        <option *ngFor="let cat of categories" [ngValue]="cat">
+          {{ cat.categoryName }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Start Date -->
+    <div class="filter-item">
+      <label for="start-date">Start Date</label>
+      <input type="date" id="start-date" [(ngModel)]="startDate" (change)="getRevenueData()" />
+    </div>
+
+    <!-- End Date -->
+    <div class="filter-item">
+      <label for="end-date">End Date</label>
+      <input type="date" id="end-date" [(ngModel)]="endDate" (change)="getRevenueData()" />
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="content">
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [dataLabels]="chartOptions.dataLabels"
+        [legend]="chartOptions.legend"
+        [markers]="chartOptions.markers"
+        [grid]="chartOptions.grid"
+        [yaxis]="chartOptions.yaxis"
+        [title]="chartOptions.title"
+      ></apx-chart>
+    </div>
+  </div>
+</div>

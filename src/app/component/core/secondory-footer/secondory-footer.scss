@@ -1,0 +1,10 @@
+.outer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  background-color: var(--gray-color);
+  p{
+    margin: 0;
+  }
+}

@@ -1,0 +1,63 @@
+// Always keep this at the very top
+@use '@angular/material' as mat;
+
+// Material theme setup
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+@import url('https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+  color-scheme: light;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  margin: 0;
+}
+
+// ✅ Custom CSS variables (after @use)
+:root {
+  --primary-color:#263340;
+  --secondary-color:#34495E;
+  --nav-color:#3C3F41;
+  --orange-color:#FF6600;
+  --light-gray-color:#F4F6F5;
+  --green-color:#16A085;
+  --light-color:#FFFFFF;
+  --dark-blue-color:#2F327D;
+  --blue-color:#0A58CA;
+  --gray-color:rgba(189, 195, 199,1.0);
+  --danger-color:rgba(231, 76, 60,1.0);
+  --red-color:#C63031;
+  --background-color:rgba(236, 240, 241,0.5);
+  --background-light-color:rgba(236, 240, 241,0.3);
+  --shadow-color:rgba(52, 73, 94,0.6);
+  --pos-gradientY:#2F327D;
+  --pos-gradientX:#9B16A0;
+  --pos-color:#051C4D;
+
+  --icon-color:#b2bec3;
+  --update-color:#f39c12;
+}
+
+// ✅ Global reset
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Saira", sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+
+}

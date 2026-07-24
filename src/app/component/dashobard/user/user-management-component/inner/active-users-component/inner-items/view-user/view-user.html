@@ -1,0 +1,39 @@
+<h2 mat-dialog-title> View User </h2>
+
+<mat-dialog-content class="mat-typography">
+
+  <div *ngIf="user.avatarUrl" class="user-avatar">
+    <img src="{{user.avatarUrl}}" alt="user avatar">
+  </div>
+
+  <table class="user-table">
+    <tr>
+      <td>Account ID</td>
+      <td>{{ user.accountId }}</td>
+    </tr>
+    <tr>
+      <td>Mobile Number</td>
+      <td>{{ user.mobileNumber }}</td>
+    </tr>
+    <tr>
+      <td>User State</td>
+      <td>{{ user.activeState ? 'Active' : 'BlackListed' }}</td>
+    </tr>
+    <tr>
+      <td>Created At</td>
+      <td>{{ user.createdAt| date:'yyyy-MM-dd'  }}</td>
+    </tr>
+    <tr>
+      <td>Updated At</td>
+      <td>{{ user.updatedAt | date: 'yyyy-MM-dd' }}</td>
+    </tr>
+  </table>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+  <button matButton mat-dialog-close>Close</button>
+<!--  <button matButton="filled" class="del-btn"  [mat-dialog-close]="true" cdkFocusInitial>-->
+<!--    Black List-->
+<!--  </button>-->
+</mat-dialog-actions>

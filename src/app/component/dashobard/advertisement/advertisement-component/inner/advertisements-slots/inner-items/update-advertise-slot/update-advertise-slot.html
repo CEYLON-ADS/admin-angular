@@ -1,0 +1,78 @@
+<div class="advertisement-slot-form">
+  <h2 mat-dialog-title>Update Advertisement Slot</h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="slotForm" class="slot-form">
+
+      <!-- Slot Number Field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Slot Number</mat-label>
+        <input
+          matInput
+          formControlName="slotNumber"
+          placeholder="Enter slot number"
+          maxlength="50">
+        <mat-error *ngIf="slotForm.get('slotNumber')?.hasError('required') && slotForm.get('slotNumber')?.touched">
+          Slot number is required
+        </mat-error>
+        <mat-error *ngIf="slotForm.get('slotNumber')?.hasError('minlength') && slotForm.get('slotNumber')?.touched">
+          Slot number must be at least 2 characters
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Estimate Cost Field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Estimate Cost</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="estimateCost"
+          placeholder="0.00"
+          min="0"
+          step="0.01">
+        <span matPrefix>$</span>
+        <mat-error *ngIf="slotForm.get('estimateCost')?.hasError('required') && slotForm.get('estimateCost')?.touched">
+          Estimate cost is required
+        </mat-error>
+        <mat-error *ngIf="slotForm.get('estimateCost')?.hasError('min') && slotForm.get('estimateCost')?.touched">
+          Estimate cost must be greater than 0
+        </mat-error>
+      </mat-form-field>
+
+
+
+<!--       Category Selection -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="categoryId">
+          <mat-option *ngFor="let category of categories" [value]="category.propertyId">
+            {{ category.categoryName }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="slotForm.get('categoryId')?.hasError('required') && slotForm.get('categoryId')?.touched">
+          Please select a category
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <button
+      mat-button
+      (click)="onCancel()"
+      type="button">
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSave()"
+      [disabled]="slotForm.invalid || isLoading || isUpdateDisabled"
+      type="submit">
+      <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
+      {{ isLoading ? 'Updating...' : 'Update Slot' }}
+    </button>
+  </mat-dialog-actions>
+
+</div>

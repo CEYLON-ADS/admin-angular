@@ -1,0 +1,77 @@
+<div class="search-row">
+  <div class="search">
+    <form (ngSubmit)="loadAll()">
+      <input type="search" placeholder="Search by user phone number or category.." [(ngModel)]="searchText" name="search" (ngModelChange)="onSearchChange($event)">
+    </form>
+  </div>
+
+  <div class="add-new" (click)="openDialog()">
+    <i class="fa-solid fa-plus"></i>
+    New Advertisement Slot
+  </div>
+</div>
+
+<hr>
+
+<!-- Loading Spinner -->
+<div *ngIf="loading" class="loading-container">
+  <mat-spinner diameter="40"></mat-spinner>
+  <span class="loading-text">Loading advertisement slots...</span>
+</div>
+
+<table *ngIf="!loading" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="categoryName">
+    <th mat-header-cell *matHeaderCellDef> Category Name</th>
+    <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="slotNumber">
+    <th mat-header-cell *matHeaderCellDef> Slot Number </th>
+    <td mat-cell *matCellDef="let element"> {{element.slotNumber}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="userContact">
+    <th mat-header-cell *matHeaderCellDef> User Mobile Number </th>
+    <td mat-cell *matCellDef="let element"> {{element.userMobileNumber}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="activeState">
+    <th mat-header-cell *matHeaderCellDef> Active </th>
+    <td mat-cell *matCellDef="let element">
+    <app-slot-advertisement-status [slot]="element" (statusChanged)="changedStatus()" ></app-slot-advertisement-status>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tools">
+    <th mat-header-cell *matHeaderCellDef> Tools </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="tools">
+        <i class="fa-solid fa-eye view" matTooltip="Update Advertisement Slot" (click)="openViewDialog(element)"></i>
+        <i class="fa-solid fa-pen update" matTooltip="Update Advertisement Slot" (click)="updateSlot(element)"></i>
+        <i class="fa-solid fa-rocket view" matTooltip="Boost Advertisement" (click)="boostAdd(element)" aria-hidden="true"></i>
+        <i class="fa-solid fa-trash delete" matTooltip="Delete Advertisement Slot" (click)="deleteSlot(element)"></i>
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- No data row -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+      <div class="no-data-container">
+        <mat-icon class="no-data-icon">inbox</mat-icon>
+        <span>No advertisement slots found</span>
+      </div>
+    </td>
+  </tr>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSize]="size" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>

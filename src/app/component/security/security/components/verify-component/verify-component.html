@@ -1,0 +1,40 @@
+<div class="outer">
+<div class="login-container mat-elevation-z4">
+
+  <!-- Success message -->
+  <div *ngIf="otpSent" class="success-msg">
+    OTP has been sent via SMS.
+  </div>
+
+  <h2 class="title">Login/ Register</h2>
+  <br>
+  <hr>
+  <br>
+  <h5 class="title2">Enter Verification Code</h5>
+  <p class="subtitle">
+    දුරකථන අංකයට එවූ 6 இலக்க OTP අංකය ඇතුළත් කර <strong>Verify</strong> Click කරන්න.
+  </p>
+
+  <!-- OTP Form -->
+  <form [formGroup]="otpForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <input matInput placeholder="Verification code" formControlName="otp" />
+    </mat-form-field>
+  </form>
+
+  <button
+    matButton="filled"
+    class="btn-full f-btn"
+    (click)="onVerify()"
+    [disabled]="otpForm.invalid">
+    Verify Code
+  </button>
+<!--  routerLink="/process/dashboard"-->
+  <button
+    mat-raised-button
+    class="btn-full dark-btn"
+    (click)="onRequestAgain()">
+    Request Again/ Change Number
+  </button>
+</div>
+</div>

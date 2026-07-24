@@ -1,0 +1,132 @@
+<div class="advertisement-slot-form">
+  <h2 mat-dialog-title> Update slot advertisement </h2>
+
+  <mat-dialog-content class="dialog-content">
+    <form [formGroup]="slotForm" class="slot-form">
+      <!-- Category Autocomplete -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Category</mat-label>
+        <input
+          matInput
+          formControlName="categoryName"
+          placeholder="Search and select category"
+          [matAutocomplete]="autoCategory">
+        <mat-autocomplete #autoCategory="matAutocomplete" [displayWith]="displayCategoryFn">
+          <mat-option *ngFor="let category of filteredCategories | async"
+                      [value]="category"
+                      (onSelectionChange)="onCategorySelected(category)">
+            {{ category.categoryName }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="slotForm.get('categoryName')?.hasError('required') && slotForm.get('categoryName')?.touched">
+          Please select a category
+        </mat-error>
+        <mat-error *ngIf="slotForm.get('categoryName')?.hasError('invalidCategory') && slotForm.get('categoryName')?.touched">
+          Please select a correct category from the list
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Slot Number Field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Slot Number</mat-label>
+        <input
+          matInput
+          formControlName="slotNumber"
+          placeholder="Search and select slot number"
+          [matAutocomplete]="autoSlot">
+        <mat-autocomplete #autoSlot="matAutocomplete" [displayWith]="displaySlotFn">
+          <mat-option *ngFor="let slot of filteredSlots | async"
+                      [value]="slot"
+                      (onSelectionChange)="onSlotSelected(slot)">
+            {{ slot.slotNumber }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="slotForm.get('slotNumber')?.hasError('required') && slotForm.get('slotNumber')?.touched">
+          Slot number is required
+        </mat-error>
+        <mat-error *ngIf="slotForm.get('slotNumber')?.hasError('invalidSlot') && slotForm.get('slotNumber')?.touched">
+          Please select a correct slot from the list
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Redirect URL Field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Redirect URL</mat-label>
+        <input
+          matInput
+          formControlName="redirectUrl"
+          placeholder="Enter redirect URL">
+        <mat-error *ngIf="slotForm.get('redirectUrl')?.hasError('required') && slotForm.get('redirectUrl')?.touched">
+          Redirect URL is required
+        </mat-error>
+        <mat-error *ngIf="slotForm.get('redirectUrl')?.hasError('pattern') && slotForm.get('redirectUrl')?.touched">
+          Please enter a valid URL
+        </mat-error>
+      </mat-form-field>
+
+      <!-- User Autocomplete -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>User</mat-label>
+        <input
+          matInput
+          formControlName="userName"
+          placeholder="Search and select user"
+          [matAutocomplete]="autoUser">
+        <mat-autocomplete #autoUser="matAutocomplete" [displayWith]="displayUserFn">
+          <mat-option *ngFor="let user of filteredUsers | async"
+                      [value]="user"
+                      (onSelectionChange)="onUserSelected(user)">
+            {{ user.mobileNumber }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="slotForm.get('userName')?.hasError('required') && slotForm.get('userName')?.touched">
+          Please select a user
+        </mat-error>
+        <mat-error *ngIf="slotForm.get('userName')?.hasError('invalidUser') && slotForm.get('userName')?.touched">
+          Please select a correct user from the list
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Advertisement Images -->
+      <div class="image-upload-container">
+        <div class="image-upload-box" (click)="fileInput.click()">
+          <span class="placeholder-text">Click to upload advertisement images</span>
+        </div>
+        <input
+          #fileInput
+          type="file"
+          accept="image/*"
+          multiple
+          (change)="onFileSelected($event)"
+          style="display: none">
+        <div class="image-preview-list">
+          <div *ngFor="let image of previewImages; let i = index" class="image-preview-item">
+            <img [src]="image" alt="Advertisement Preview {{i + 1}}" class="preview-image">
+            <button class="remove-image" (click)="removeImage(i)">X</button>
+          </div>
+        </div>
+        <mat-error *ngIf="slotForm.get('advertisement')?.hasError('required') && slotForm.get('advertisement')?.touched">
+          At least one advertisement image is required
+        </mat-error>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <button
+      mat-button
+      (click)="onCancel()"
+      type="button">
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSave()"
+      [disabled]="slotForm.invalid || isLoading"
+      type="submit">
+      <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
+      {{ !isLoading ? 'Update ' : '' }}
+    </button>
+  </mat-dialog-actions>
+</div>

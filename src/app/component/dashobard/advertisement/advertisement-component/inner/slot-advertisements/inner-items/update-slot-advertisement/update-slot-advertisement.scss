@@ -1,0 +1,106 @@
+.advertisement-slot-form {
+  min-width: 400px;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.slot-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.dialog-content {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.image-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.image-upload-box {
+  width: 150px;
+  height: 150px;
+  border: 2px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.image-preview-list {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.image-preview-item {
+  position: relative;
+  flex: 0 0 auto;
+  width: 100px;
+  height: 100px;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.remove-image {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.placeholder-text {
+  color: #666;
+  text-align: center;
+  padding: 10px;
+}
+
+.dialog-actions {
+  padding: 10px 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.spinner {
+  margin-right: 8px;
+}
+
+mat-form-field {
+  font-size: 14px;
+}
+
+h2 {
+  margin: 0;
+  color: #333;
+  font-weight: 500;
+}

@@ -1,0 +1,82 @@
+<div class="cities-container">
+  <div class="search-row">
+    <div class="search">
+      <form>
+        <input type="search" placeholder="Search here" [formControl]="searchControl">
+      </form>
+    </div>
+    <!--<div class="add-new" (click)="openDialog()">
+      <i class="fa-solid fa-plus"></i>
+      New City
+    </div>-->
+  </div>
+
+  <hr>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <span class="loading-text">Loading cities...</span>
+  </div>
+
+  <!-- Cities Table -->
+  <div class="table-container" *ngIf="!loading">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="district">
+        <th mat-header-cell *matHeaderCellDef> District </th>
+        <td mat-cell *matCellDef="let element"> {{element.district}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef> City </th>
+        <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="tools">
+        <th mat-header-cell *matHeaderCellDef> Tools </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="tools">
+            <i class="fa-solid fa-pen update" matTooltip="Update City" (click)="updateUser(element)"></i>
+            <i class="fa-solid fa-trash delete" matTooltip="Delete City" (click)="deleteUser(element)"></i>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- No data row -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+          <div class="no-data-container">
+            <mat-icon class="no-data-icon">inbox</mat-icon>
+            <span>No cities found</span>
+            <p *ngIf="searchText">No cities match your search criteria.</p>
+            <p *ngIf="!searchText">No cities have been created yet.</p>
+            <button mat-raised-button color="primary" (click)="openDialog()">
+              <mat-icon>add</mat-icon>
+              Add First City
+            </button>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Pagination -->
+    <mat-paginator
+      *ngIf="!loading && totalElements > 0"
+      [length]="totalElements"
+      [pageSize]="size"
+      [pageIndex]="page"
+      [pageSizeOptions]="[5, 10, 25]"
+      (page)="onPageChange($event)"
+      showFirstLastButtons
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>

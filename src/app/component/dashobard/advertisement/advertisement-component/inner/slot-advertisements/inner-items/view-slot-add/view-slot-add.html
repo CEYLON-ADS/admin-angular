@@ -1,0 +1,52 @@
+<h2 mat-dialog-title> View Advertisement</h2>
+
+<mat-dialog-content class="mat-typography">
+
+  <table class="user-table">
+    <tr>
+      <td>Category Name</td>
+      <td>{{ slotAd.categoryName }}</td>
+    </tr>
+    <tr>
+      <td>Slot Number</td>
+      <td>{{ slotAd.slotNumber }}</td>
+    </tr>
+    <tr>
+      <td>Redirect URL</td>
+      <td>
+        <a [href]="slotAd.redirectLink" target="_blank" rel="noopener noreferrer">
+          {{ slotAd.redirectLink }}
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>States</td>
+      <td>{{ slotAd.activeStatus ? 'Active' : 'BlackListed' }}</td>
+    </tr>
+    <tr>
+      <td>User Mobile Number</td>
+      <td>{{ slotAd.userMobileNumber }}</td>
+    </tr>
+  </table>
+
+  <!--Images-->
+  <br>
+<h6> Advertisement Images  </h6>
+  <!--Images-->
+  <div *ngIf="imageUrls" class="image-gallery">
+    <div *ngFor="let image of imageUrls" class="image-wrapper">
+      <img [src]="image.url" alt="Advertisement Image" class="ad-image" />
+    </div>
+  </div>
+
+  <div *ngIf="!imageUrls" class="no-images"> No images </div>
+
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+  <button matButton mat-dialog-close>Close</button>
+  <!--  <button matButton="filled" class="del-btn"  [mat-dialog-close]="true" cdkFocusInitial>-->
+  <!--    Black List-->
+  <!--  </button>-->
+</mat-dialog-actions>
