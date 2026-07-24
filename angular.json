@@ -35,11 +35,13 @@
             "ssr": {
               "entry": "src/server.ts"
             },
-            "allowedHosts": [
-              "localhost",
-              "127.0.0.1",
-              "admin.queenslanka.com"
-            ]
+            "security": {
+              "allowedHosts": [
+                "localhost",
+                "127.0.0.1",
+                "admin.queenslanka.com"
+              ]
+            }
           },
           "configurations": {
             "production": {
