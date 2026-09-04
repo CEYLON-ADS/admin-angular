@@ -30,7 +30,7 @@ export class AllocateCreditsModalComponent {
 
   onAllocate(): void {
     if (this.amount === null || this.amount === undefined || this.amount === 0) {
-      this.snackbarService.showWarning('Please enter a valid non-zero credit amount');
+      this.snackbarService.openWarning('Please enter a valid non-zero credit amount');
       return;
     }
 
@@ -39,15 +39,15 @@ export class AllocateCreditsModalComponent {
       next: (res: any) => {
         this.loading = false;
         if (res?.body?.code === 200 || res?.code === 200) {
-          this.snackbarService.showSuccess(`Successfully allocated ${this.amount} credits`);
+          this.snackbarService.openSuccess(`Successfully allocated ${this.amount} credits`);
           this.dialogRef.close(true);
         } else {
-          this.snackbarService.showError(res?.body?.message || 'Failed to allocate credits');
+          this.snackbarService.openWarning(res?.body?.message || 'Failed to allocate credits');
         }
       },
       error: (err: any) => {
         this.loading = false;
-        this.snackbarService.showError(err?.error?.message || 'Error allocating credits');
+        this.snackbarService.openWarning(err?.error?.message || 'Error allocating credits');
       }
     });
   }

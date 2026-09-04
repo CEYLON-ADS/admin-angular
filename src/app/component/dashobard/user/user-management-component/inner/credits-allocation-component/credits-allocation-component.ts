@@ -111,7 +111,7 @@ export class CreditsAllocationComponent implements OnInit, OnDestroy {
 
   public saveCreditCost(): void {
     if (this.creditCostPerAd === null || this.creditCostPerAd === undefined || this.creditCostPerAd < 0) {
-      this.snackbarService.showWarning('Please enter a valid credit cost per ad (>= 0)');
+      this.snackbarService.openWarning('Please enter a valid credit cost per ad (>= 0)');
       return;
     }
 
@@ -119,11 +119,11 @@ export class CreditsAllocationComponent implements OnInit, OnDestroy {
     this.userService.setCreditCostPerAd(this.creditCostPerAd).subscribe({
       next: (res: any) => {
         this.savingCost = false;
-        this.snackbarService.showSuccess('Credit cost per ad updated successfully');
+        this.snackbarService.openSuccess('Credit cost per ad updated successfully');
       },
       error: (err: any) => {
         this.savingCost = false;
-        this.snackbarService.showError(err?.error?.message || 'Failed to update credit cost');
+        this.snackbarService.openWarning(err?.error?.message || 'Failed to update credit cost');
       }
     });
   }
@@ -145,7 +145,7 @@ export class CreditsAllocationComponent implements OnInit, OnDestroy {
       },
       error: (err: any) => {
         this.loading = false;
-        this.snackbarService.showError(err?.error?.message || 'Failed to load Ads Agents');
+        this.snackbarService.openWarning(err?.error?.message || 'Failed to load Ads Agents');
         this.cdr.markForCheck();
       }
     });
