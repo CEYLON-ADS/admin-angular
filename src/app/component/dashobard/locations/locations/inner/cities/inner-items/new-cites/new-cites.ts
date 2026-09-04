@@ -95,16 +95,24 @@ export class NewCites implements OnInit {
 
   }
 
-  displayFn(district: District): string {
+  displayFn(district: District | string): string {
+    if (typeof district === 'string') {
+      return district;
+    }
     return district && district.name ? district.name : '';
   }
 
   onCategorySelected(district: District): void {
     this.selectedDistrict = district;
-    this.selectedDistrictId = district.propertyId;
+    this.selectedDistrictId = (district as any).propertyID || (district as any).propertyId || '';
   }
 
   onSave(): void {
+    const districtControlValue = this.slotForm.get('districtName')?.value;
+    if (districtControlValue && typeof districtControlValue === 'object') {
+      this.selectedDistrictId = (districtControlValue as any).propertyID || (districtControlValue as any).propertyId || this.selectedDistrictId;
+    }
+
     if (this.slotForm.valid) {
       if (!this.selectedDistrictId) {
         this.snackbarService.openWarning('Please select a valid district from the list');
