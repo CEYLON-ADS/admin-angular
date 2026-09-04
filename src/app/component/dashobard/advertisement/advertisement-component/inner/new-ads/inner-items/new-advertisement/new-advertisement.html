@@ -174,6 +174,7 @@
 
       <!-- Advertisement Images (Max 4) -->
       <div class="image-upload-container">
+        <label class="block text-sm font-medium mb-1">Advertisement Images (Max 4):</label>
         <div class="image-upload-box" [class.disabled]="selectedFiles.length >= 4" (click)="selectedFiles.length < 4 && fileInput.click()">
           <span class="placeholder-text">
             {{ selectedFiles.length < 4 ? 'Click to upload advertisement images (Max 4 images)' : 'Maximum 4 images uploaded (4/4)' }}
@@ -194,6 +195,32 @@
         </div>
         <mat-error *ngIf="slotForm.get('advertisement')?.hasError('required') && slotForm.get('advertisement')?.touched">
           At least one advertisement image is required
+        </mat-error>
+      </div>
+
+      <!-- Payment Slip Attachment (Required) -->
+      <div class="image-upload-container mt-3">
+        <label class="block text-sm font-medium mb-1">Payment Slip Attachment (Required):</label>
+        <div class="image-upload-box" (click)="slipFileInput.click()">
+          <span class="placeholder-text">
+            {{ selectedSlipFiles.length === 0 ? 'Click to upload payment slip(s)' : selectedSlipFiles.length + ' payment slip(s) attached' }}
+          </span>
+        </div>
+        <input
+          #slipFileInput
+          type="file"
+          accept="image/*,.pdf"
+          multiple
+          (change)="onSlipSelected($event)"
+          style="display: none">
+        <div class="image-preview-list">
+          <div *ngFor="let slip of previewSlips; let i = index" class="image-preview-item">
+            <img [src]="slip" alt="Payment Slip Preview {{i + 1}}" class="preview-image">
+            <button class="remove-image" (click)="removeSlip(i)">X</button>
+          </div>
+        </div>
+        <mat-error *ngIf="slotForm.get('slips')?.hasError('required') && slotForm.get('slips')?.touched">
+          At least one payment slip attachment is required
         </mat-error>
       </div>
     </form>

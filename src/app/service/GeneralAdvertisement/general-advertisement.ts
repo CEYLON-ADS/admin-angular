@@ -16,6 +16,11 @@ export class GeneralAdvertisementService {
     return this.http.post(`${this.baseUrl}`, formData);
   }
 
+  // Create advertisement by admin (supports payment slips)
+  public createAdvertisementByAdmin(formData: FormData): Observable<any> {
+    return this.http.post(`${this.baseUrl}/by-admin`, formData);
+  }
+
   // Update advertisement (using FormData)
   public updateAdvertisement(adId: string, formData: FormData): Observable<any> {
     return this.http.put(`${this.baseUrl}/${adId}`, formData);
