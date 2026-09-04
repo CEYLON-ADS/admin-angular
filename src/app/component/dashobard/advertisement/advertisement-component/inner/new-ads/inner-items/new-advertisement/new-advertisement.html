@@ -29,13 +29,47 @@
         </mat-error>
       </div>
 
+      <!-- Contact Person Name & Contact Number Fields -->
+      <div class="form-row flex gap-4">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contact Person Name</mat-label>
+          <input
+            matInput
+            formControlName="contactName"
+            placeholder="Enter contact person name">
+          <mat-error *ngIf="slotForm.get('contactName')?.hasError('required') && slotForm.get('contactName')?.touched">
+            Contact person name is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contact Number</mat-label>
+          <input
+            matInput
+            formControlName="contactNumber"
+            placeholder="e.g. +94771234567">
+          <mat-error *ngIf="slotForm.get('contactNumber')?.hasError('required') && slotForm.get('contactNumber')?.touched">
+            Contact number is required
+          </mat-error>
+          <mat-error *ngIf="slotForm.get('contactNumber')?.hasError('pattern') && slotForm.get('contactNumber')?.touched">
+            Please enter a valid mobile/phone number
+          </mat-error>
+        </mat-form-field>
+      </div>
+
       <!-- Social Media Checkboxes -->
-      <section class="example-section">
-        <mat-checkbox class="example-margin" formControlName="whatsapp">Whatsapp</mat-checkbox>
-        <mat-checkbox class="example-margin" formControlName="telegram">Telegram</mat-checkbox>
-        <mat-checkbox class="example-margin" formControlName="viber">Viber</mat-checkbox>
-        <mat-checkbox class="example-margin" formControlName="imo">Imo</mat-checkbox>
-      </section>
+      <div class="messenger-section mb-3">
+        <label class="block text-sm font-medium mb-1">Select Available Messengers (At least one required):</label>
+        <section class="example-section">
+          <mat-checkbox class="example-margin" formControlName="whatsapp">Whatsapp</mat-checkbox>
+          <mat-checkbox class="example-margin" formControlName="telegram">Telegram</mat-checkbox>
+          <mat-checkbox class="example-margin" formControlName="viber">Viber</mat-checkbox>
+          <mat-checkbox class="example-margin" formControlName="imo">Imo</mat-checkbox>
+        </section>
+        <mat-error *ngIf="!hasSelectedMessenger() && slotForm.touched">
+          * At least one messaging app (WhatsApp, Telegram, Viber, or IMO) must be selected.
+        </mat-error>
+      </div>
 
       <!-- Type Select Field -->
       <mat-form-field appearance="outline" class="full-width">
@@ -138,10 +172,12 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Advertisement Images -->
+      <!-- Advertisement Images (Max 4) -->
       <div class="image-upload-container">
-        <div class="image-upload-box" (click)="fileInput.click()">
-          <span class="placeholder-text">Click to upload advertisement images</span>
+        <div class="image-upload-box" [class.disabled]="selectedFiles.length >= 4" (click)="selectedFiles.length < 4 && fileInput.click()">
+          <span class="placeholder-text">
+            {{ selectedFiles.length < 4 ? 'Click to upload advertisement images (Max 4 images)' : 'Maximum 4 images uploaded (4/4)' }}
+          </span>
         </div>
         <input
           #fileInput

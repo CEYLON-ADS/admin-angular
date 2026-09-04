@@ -102,6 +102,9 @@ export class LoginComponent implements OnInit{
           if (response.body.data?.token) {
             this.cookieManagerService.setToken(response.body.data.token, "ceylonAddAdminToken");
           }
+          if (response.body.data?.userId) {
+            this.cookieManagerService.setToken(response.body.data.userId, "ceylonAddAdminID");
+          }
           this.router.navigate(['/process/dashboard']);
         },
         error: (error) => {

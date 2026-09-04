@@ -72,7 +72,7 @@ export class ViewPendingAdd implements OnInit{
 
   verify(): void {
     const userId = this.cookieService.get("ceylonAddAdminID");
-    this.generalAdvertisementService.verifyAdvertisement(this.slotAd.propertyId,userId).subscribe({
+    this.generalAdvertisementService.verifyAdvertisement(this.slotAd.propertyId, userId || undefined).subscribe({
       next: (response) => {
         console.log('response', response );
         this.dialogRef.close(true);

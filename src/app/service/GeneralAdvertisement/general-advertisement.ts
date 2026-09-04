@@ -65,10 +65,12 @@ export class GeneralAdvertisementService {
   }
 
   // Verify advertisement
-  public verifyAdvertisement(adId: string, verifiedBy: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/verify/${adId}`, null, {
-      params: { verifiedBy }
-    });
+  public verifyAdvertisement(adId: string, verifiedBy?: string): Observable<any> {
+    const params: any = {};
+    if (verifiedBy && verifiedBy.trim()) {
+      params.verifiedBy = verifiedBy.trim();
+    }
+    return this.http.post(`${this.baseUrl}/verify/${adId}`, null, { params });
   }
 
   // Reject advertisement

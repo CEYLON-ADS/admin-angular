@@ -190,6 +190,8 @@ export class NewAdvertisement implements OnInit {
       categoryName: ['', Validators.required],
       userName: ['', Validators.required],
       adTitle: ['', Validators.required],
+      contactName: ['', Validators.required],
+      contactNumber: ['', [Validators.required, Validators.pattern(/^[0-9+ ]{9,15}$/)]],
       serviceFee: ['', [Validators.required, Validators.min(0), Validators.pattern(/^\d*\.?\d*$/)]],
       type: ['', Validators.required],
       description: ['', Validators.required],
@@ -200,6 +202,11 @@ export class NewAdvertisement implements OnInit {
       cities: [[], Validators.required],
       currentCity: ['']
     });
+  }
+
+  hasSelectedMessenger(): boolean {
+    const val = this.slotForm.value;
+    return !!(val.whatsapp || val.telegram || val.viber || val.imo);
   }
 
   onCategorySelected(category: Category): void {
@@ -253,7 +260,16 @@ export class NewAdvertisement implements OnInit {
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      const newFiles = Array.from(input.files);
+      let newFiles = Array.from(input.files);
+      if (this.selectedFiles.length + newFiles.length > 4) {
+        this.snackbarService.openWarning('Maximum 4 advertisement images allowed');
+        const allowedSlots = 4 - this.selectedFiles.length;
+        if (allowedSlots <= 0) {
+          input.value = '';
+          return;
+        }
+        newFiles = newFiles.slice(0, allowedSlots);
+      }
       this.selectedFiles = [...this.selectedFiles, ...newFiles];
       this.slotForm.get('advertisement')?.setValue(this.selectedFiles);
       this.slotForm.get('advertisement')?.markAsTouched();
@@ -265,6 +281,7 @@ export class NewAdvertisement implements OnInit {
         };
         reader.readAsDataURL(file);
       });
+      input.value = '';
     }
   }
 
@@ -344,20 +361,24 @@ export class NewAdvertisement implements OnInit {
   }
 
   onSave(): void {
-    console.log('Payload:', {
-      title: this.slotForm.value.adTitle,
-      description: this.slotForm.value.description,
-      categoryID: this.selectedCategory?.propertyId,
-      userId: this.selectedUser?.propertyId,
-      serviceFee: this.slotForm.value.serviceFee,
-      adType: this.slotForm.value.type,
-      cityIds: this.selectedCities.map(city => city.propertyID)
-    });
+    if (!this.hasSelectedMessenger()) {
+      this.snackbarService.openWarning('Please select at least one contact messenger (WhatsApp, Telegram, Viber, or IMO)');
+      this.cdr.markForCheck();
+      return;
+    }
+
+    if (this.selectedFiles.length > 4) {
+      this.snackbarService.openWarning('Maximum 4 advertisement images allowed');
+      this.cdr.markForCheck();
+      return;
+    }
 
     if (this.slotForm.valid && this.selectedCategory && this.selectedUser && this.slotForm.value.type) {
       this.isLoading = true;
       const formData = new FormData();
       formData.append('title', this.slotForm.value.adTitle);
+      formData.append('contactName', this.slotForm.value.contactName || '');
+      formData.append('contactNumber', this.slotForm.value.contactNumber || '');
       formData.append('whatsapp', this.slotForm.value.whatsapp.toString());
       formData.append('telegram', this.slotForm.value.telegram.toString());
       formData.append('viber', this.slotForm.value.viber.toString());

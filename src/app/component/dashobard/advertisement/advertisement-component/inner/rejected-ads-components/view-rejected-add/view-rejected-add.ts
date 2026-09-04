@@ -14,6 +14,7 @@ import {VerifiConformation} from '../../pending-ads-components/inner-items/verif
 
 import {GeneralAdvertisementService} from '../../../../../../../service/GeneralAdvertisement/general-advertisement';
 import {SnackbarService} from '../../../../../../../service/snackbar/snackbar.service';
+import {CookieManagerService} from '../../../../../../../service/cookie/cookie-manager.service';
 
 @Component({
   selector: 'app-view-rejected-add',
@@ -40,6 +41,7 @@ export class ViewRejectedAdd implements OnInit{
   constructor(
     private generalAdvertisementService:GeneralAdvertisementService,
     private snackbarService:SnackbarService,
+    private cookieManagerService:CookieManagerService,
     public dialogRef: MatDialogRef<ViewRejectedAdd>,
     @Inject(MAT_DIALOG_DATA) public data: any
 
@@ -67,7 +69,8 @@ export class ViewRejectedAdd implements OnInit{
   }
 
   verify(): void {
-    this.generalAdvertisementService.verifyAdvertisement(this.slotAd.propertyId,'a4adc96a-7425-4498-b656-1b942bea25a2').subscribe({
+    const userId = this.cookieManagerService.getToken("ceylonAddAdminID");
+    this.generalAdvertisementService.verifyAdvertisement(this.slotAd.propertyId, userId || undefined).subscribe({
       next: (response) => {
         console.log('response', response );
         this.dialogRef.close(true);
