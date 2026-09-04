@@ -55,6 +55,12 @@ export class UpdateUser implements OnInit {
   mobileNumber:string = "";
   countryCodes = ['+94', '+91'];
 
+  availableRoles = [
+    { value: 'PUBLIC_USER', label: 'Public User' },
+    { value: 'ADS_AGENT', label: 'Ads Agent' },
+    { value: 'ADMIN', label: 'Admin' }
+  ];
+
   constructor(
     private fb: FormBuilder,
     private snackbarService: SnackbarService,
@@ -65,18 +71,31 @@ export class UpdateUser implements OnInit {
     this.user = data;
 
     this.form = this.fb.group({
+      username: [''],
       mobileNumber: ['', Validators.required],
-      // code: ['+94', Validators.required],
-      // phone: ['', [Validators.required, Validators.pattern('^[0-9]{7,12}$')]]
+      role: ['PUBLIC_USER', Validators.required]
     });
   }
 
   ngOnInit(): void {
     console.log('update user', this.user);
 
+    let initialRole = 'PUBLIC_USER';
+    if (this.user?.roles && Array.isArray(this.user.roles)) {
+      if (this.user.roles.includes('ADMIN')) {
+        initialRole = 'ADMIN';
+      } else if (this.user.roles.includes('ADS_AGENT')) {
+        initialRole = 'ADS_AGENT';
+      } else if (this.user.roles.includes('PUBLIC_USER') || this.user.roles.includes('USER')) {
+        initialRole = 'PUBLIC_USER';
+      }
+    }
+
     // Patch the form with initial values
     this.form.patchValue({
-      mobileNumber: this.user.mobileNumber
+      username: this.user.username || '',
+      mobileNumber: this.user.mobileNumber,
+      role: initialRole
     });
 
     // Store the initial form value after patching
@@ -97,9 +116,21 @@ export class UpdateUser implements OnInit {
     if (this.form.valid && this.hasFormChanged) {
       this.loading = true;
 
-      const dto: ApplicationUserRequestDTO = {
-        mobileNumber: this.form.value.mobileNumber
+      const selectedRole = this.form.value.role;
+      let rolesList: string[] = ['USER'];
+      if (selectedRole === 'ADMIN') {
+        rolesList = ['ADMIN', 'USER', 'PUBLIC_USER'];
+      } else if (selectedRole === 'ADS_AGENT') {
+        rolesList = ['ADS_AGENT', 'USER'];
+      } else {
+        rolesList = ['PUBLIC_USER', 'USER'];
       }
+
+      const dto: ApplicationUserRequestDTO = {
+        username: this.form.value.username,
+        mobileNumber: this.form.value.mobileNumber,
+        roles: rolesList
+      };
 
       this.userService.updateUser(this.user.propertyId, dto).subscribe({
         next: (response) => {

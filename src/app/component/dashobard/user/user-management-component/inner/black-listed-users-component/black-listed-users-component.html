@@ -20,9 +20,25 @@
     <td mat-cell *matCellDef="let element"> {{element.position}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{ element.username || 'N/A' }} </td>
+  </ng-container>
+
   <ng-container matColumnDef="mobileNumber">
     <th mat-header-cell *matHeaderCellDef> Mobile Number </th>
     <td mat-cell *matCellDef="let element"> {{element.mobileNumber}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="roles">
+    <th mat-header-cell *matHeaderCellDef> Role </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="roles-container">
+        <span *ngFor="let role of getRolesList(element.roles)" [class]="getRoleBadgeClass(role)">
+          {{ getRoleLabel(role) }}
+        </span>
+      </div>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="createdAt">

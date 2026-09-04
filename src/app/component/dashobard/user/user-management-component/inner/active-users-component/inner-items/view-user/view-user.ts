@@ -41,4 +41,16 @@ export class ViewUser implements OnInit{
   ngOnInit(): void {
     console.log( 'view user', this.user );
   }
+
+  getRolesDisplay(): string {
+    if (!this.user?.roles || !Array.isArray(this.user.roles) || this.user.roles.length === 0) {
+      return 'Public User';
+    }
+    return this.user.roles.map((r: string) => {
+      if (r === 'ADMIN') return 'Admin';
+      if (r === 'ADS_AGENT') return 'Ads Agent';
+      if (r === 'PUBLIC_USER' || r === 'USER') return 'Public User';
+      return r;
+    }).join(', ');
+  }
 }

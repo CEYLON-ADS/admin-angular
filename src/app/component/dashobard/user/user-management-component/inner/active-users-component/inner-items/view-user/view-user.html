@@ -12,8 +12,16 @@
       <td>{{ user.accountId }}</td>
     </tr>
     <tr>
+      <td>Name / Username</td>
+      <td>{{ user.username || 'N/A' }}</td>
+    </tr>
+    <tr>
       <td>Mobile Number</td>
       <td>{{ user.mobileNumber }}</td>
+    </tr>
+    <tr>
+      <td>User Role</td>
+      <td><strong>{{ getRolesDisplay() }}</strong></td>
     </tr>
     <tr>
       <td>User State</td>

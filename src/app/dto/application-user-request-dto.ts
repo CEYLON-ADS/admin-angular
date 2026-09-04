@@ -1,3 +1,5 @@
 export interface ApplicationUserRequestDTO {
-  mobileNumber:string
+  username?: string;
+  mobileNumber: string;
+  roles?: string[];
 }

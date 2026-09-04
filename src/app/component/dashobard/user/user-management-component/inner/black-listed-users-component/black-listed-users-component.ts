@@ -64,9 +64,40 @@ export class BlackListedUsersComponent implements OnInit, OnDestroy {
   size = 10;
   totalItems = 0;
   searchText = '';
-  displayedColumns: string[] = ['position', 'mobileNumber', 'createdAt', 'updatedAt', 'tools'];
+  displayedColumns: string[] = ['position', 'name', 'mobileNumber', 'roles', 'createdAt', 'updatedAt', 'tools'];
   dataSource = new MatTableDataSource<any>([]);
   loading = false;
+
+  getRolesList(roles: any): string[] {
+    if (!roles || !Array.isArray(roles) || roles.length === 0) {
+      return ['PUBLIC_USER'];
+    }
+    if (roles.includes('ADMIN')) {
+      return ['ADMIN'];
+    }
+    if (roles.includes('ADS_AGENT')) {
+      return ['ADS_AGENT'];
+    }
+    return ['PUBLIC_USER'];
+  }
+
+  getRoleLabel(role: string): string {
+    switch (role) {
+      case 'ADMIN': return 'Admin';
+      case 'ADS_AGENT': return 'Ads Agent';
+      case 'PUBLIC_USER':
+      case 'USER': return 'Public User';
+      default: return role;
+    }
+  }
+
+  getRoleBadgeClass(role: string): string {
+    switch (role) {
+      case 'ADMIN': return 'role-badge admin';
+      case 'ADS_AGENT': return 'role-badge agent';
+      default: return 'role-badge public';
+    }
+  }
 
   private searchSubject = new Subject<string>();
   private destroy$ = new Subject<void>();

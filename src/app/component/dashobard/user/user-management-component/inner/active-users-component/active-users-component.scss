@@ -94,6 +94,38 @@
   }
 }
 
+.roles-container {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.role-badge {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+
+  &.admin {
+    background-color: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fca5a5;
+  }
+
+  &.agent {
+    background-color: #f3e8ff;
+    color: #7e22ce;
+    border: 1px solid #d8b4fe;
+  }
+
+  &.public {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #7dd3fc;
+  }
+}
+
 .no-data-container {
   display: flex;
   align-items: center;
