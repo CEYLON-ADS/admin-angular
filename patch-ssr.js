@@ -18,3 +18,10 @@ if (fs.existsSync(filePath)) {
 } else {
   console.log('ssr.mjs not found at ' + filePath);
 }
+
+// Clear Angular CLI build cache so stale SSR bundles are purged
+const cachePath = path.join(__dirname, '.angular', 'cache');
+if (fs.existsSync(cachePath)) {
+  fs.rmSync(cachePath, { recursive: true, force: true });
+  console.log('Cleared .angular/cache to purge stale SSR build artifacts.');
+}
