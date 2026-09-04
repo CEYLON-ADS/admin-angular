@@ -29,6 +29,9 @@ import {
   ActiveUsersComponent
 } from './component/dashobard/user/user-management-component/inner/active-users-component/active-users-component';
 import {
+  CreditsAllocationComponent
+} from './component/dashobard/user/user-management-component/inner/credits-allocation-component/credits-allocation-component';
+import {
   BlackListedUsersComponent
 } from './component/dashobard/user/user-management-component/inner/black-listed-users-component/black-listed-users-component';
 import {
@@ -83,7 +86,8 @@ export const routes: Routes = [
         path: 'users', component: UserManagementComponent, children: [
           {path: '', redirectTo: '/process/users/active', pathMatch: 'full'},
           {path: 'active', component: ActiveUsersComponent},
-          {path: 'black-listed', component: BlackListedUsersComponent}
+          {path: 'black-listed', component: BlackListedUsersComponent},
+          {path: 'credits', component: CreditsAllocationComponent}
         ]
       },
       {

@@ -60,4 +60,38 @@ export class UserService {
       { observe: 'response' as 'body' }
     ).pipe(map(data => data));
   }
+
+  // Search Ads Agents
+  public searchAdsAgents(searchText: string = '', page: number = 0, size: number = 10): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}/ads-agents/search?searchText=${searchText}&page=${page}&size=${size}`,
+      { observe: 'response' as 'body' }
+    ).pipe(map(data => data));
+  }
+
+  // Allocate credits
+  public allocateCredits(userId: string, amount: number): Observable<any> {
+    return this.http.post<any>(
+      `${this.baseUrl}/${userId}/allocate-credits?amount=${amount}`,
+      {},
+      { observe: 'response' as 'body' }
+    ).pipe(map(data => data));
+  }
+
+  // Get credit cost per ad
+  public getCreditCostPerAd(): Observable<any> {
+    return this.http.get<any>(
+      `${environment.baseUrl}api/v1/system-settings/credit-cost`,
+      { observe: 'response' as 'body' }
+    ).pipe(map(data => data));
+  }
+
+  // Set credit cost per ad
+  public setCreditCostPerAd(cost: number): Observable<any> {
+    return this.http.post<any>(
+      `${environment.baseUrl}api/v1/system-settings/credit-cost?cost=${cost}`,
+      {},
+      { observe: 'response' as 'body' }
+    ).pipe(map(data => data));
+  }
 }

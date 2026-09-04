@@ -1,0 +1,29 @@
+<h2 mat-dialog-title class="dialog-title">Allocate Credits to Ads Agent</h2>
+
+<mat-dialog-content class="dialog-content">
+  <div class="user-info-box mb-3 p-3 bg-light rounded">
+    <p><strong>Name / Username:</strong> {{ data.username || 'N/A' }}</p>
+    <p><strong>Mobile:</strong> {{ data.mobileNumber }}</p>
+    <p><strong>Current Balance:</strong> <span class="badge bg-primary fs-6">{{ data.currentCredits || 0 }} Credits</span></p>
+  </div>
+
+  <div class="form-group mb-3">
+    <label for="creditAmount" class="form-label font-bold text-gray-700">Credit Amount to Add/Subtract:</label>
+    <input
+      id="creditAmount"
+      type="number"
+      class="form-control"
+      [(ngModel)]="amount"
+      placeholder="e.g. 50 (or -10 to deduct)"
+    />
+    <small class="text-muted">Enter a positive number to add credits, or negative to deduct.</small>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button type="button" class="btn btn-secondary me-2" (click)="onCancel()" [disabled]="loading">Cancel</button>
+  <button type="button" class="btn btn-primary" (click)="onAllocate()" [disabled]="loading">
+    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+    Confirm Allocation
+  </button>
+</mat-dialog-actions>
