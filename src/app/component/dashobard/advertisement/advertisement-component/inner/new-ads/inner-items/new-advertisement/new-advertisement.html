@@ -60,11 +60,35 @@
       <!-- Social Media Checkboxes -->
       <div class="messenger-section mb-3">
         <label class="block text-sm font-medium mb-1">Select Available Messengers (At least one required):</label>
-        <section class="example-section">
-          <mat-checkbox class="example-margin" formControlName="whatsapp">Whatsapp</mat-checkbox>
-          <mat-checkbox class="example-margin" formControlName="telegram">Telegram</mat-checkbox>
-          <mat-checkbox class="example-margin" formControlName="viber">Viber</mat-checkbox>
-          <mat-checkbox class="example-margin" formControlName="imo">Imo</mat-checkbox>
+        <section class="example-section" style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <mat-checkbox class="example-margin" formControlName="whatsapp">Whatsapp</mat-checkbox>
+            <mat-form-field appearance="outline" *ngIf="slotForm.get('whatsapp')?.value" style="margin-bottom: -1.25em;">
+              <mat-label>WhatsApp Number</mat-label>
+              <input matInput formControlName="whatsappNumber" placeholder="e.g. +94771234567">
+            </mat-form-field>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <mat-checkbox class="example-margin" formControlName="telegram">Telegram</mat-checkbox>
+            <mat-form-field appearance="outline" *ngIf="slotForm.get('telegram')?.value" style="margin-bottom: -1.25em;">
+              <mat-label>Telegram Number</mat-label>
+              <input matInput formControlName="telegramNumber" placeholder="e.g. +94771234567">
+            </mat-form-field>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <mat-checkbox class="example-margin" formControlName="viber">Viber</mat-checkbox>
+            <mat-form-field appearance="outline" *ngIf="slotForm.get('viber')?.value" style="margin-bottom: -1.25em;">
+              <mat-label>Viber Number</mat-label>
+              <input matInput formControlName="viberNumber" placeholder="e.g. +94771234567">
+            </mat-form-field>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <mat-checkbox class="example-margin" formControlName="imo">Imo</mat-checkbox>
+            <mat-form-field appearance="outline" *ngIf="slotForm.get('imo')?.value" style="margin-bottom: -1.25em;">
+              <mat-label>IMO Number</mat-label>
+              <input matInput formControlName="imoNumber" placeholder="e.g. +94771234567">
+            </mat-form-field>
+          </div>
         </section>
         <mat-error *ngIf="!hasSelectedMessenger() && slotForm.touched">
           * At least one messaging app (WhatsApp, Telegram, Viber, or IMO) must be selected.
@@ -198,31 +222,7 @@
         </mat-error>
       </div>
 
-      <!-- Payment Slip Attachment (Required) -->
-      <div class="image-upload-container mt-3">
-        <label class="block text-sm font-medium mb-1">Payment Slip Attachment (Required):</label>
-        <div class="image-upload-box" (click)="slipFileInput.click()">
-          <span class="placeholder-text">
-            {{ selectedSlipFiles.length === 0 ? 'Click to upload payment slip(s)' : selectedSlipFiles.length + ' payment slip(s) attached' }}
-          </span>
-        </div>
-        <input
-          #slipFileInput
-          type="file"
-          accept="image/*,.pdf"
-          multiple
-          (change)="onSlipSelected($event)"
-          style="display: none">
-        <div class="image-preview-list">
-          <div *ngFor="let slip of previewSlips; let i = index" class="image-preview-item">
-            <img [src]="slip" alt="Payment Slip Preview {{i + 1}}" class="preview-image">
-            <button class="remove-image" (click)="removeSlip(i)">X</button>
-          </div>
-        </div>
-        <mat-error *ngIf="slotForm.get('slips')?.hasError('required') && slotForm.get('slips')?.touched">
-          At least one payment slip attachment is required
-        </mat-error>
-      </div>
+
     </form>
   </mat-dialog-content>
 

@@ -17,15 +17,15 @@
     </tr>
     <tr>
       <td>Whatsapp</td>
-      <td>{{ slotAd.whatsapp ? 'Yes':'No' }}</td>
+      <td>{{ slotAd.whatsapp ? slotAd.whatsappNumber || 'Yes' : 'No' }}</td>
     </tr>
     <tr>
       <td>Viber</td>
-      <td>{{ slotAd.viber ? 'Yes':'No' }}</td>
+      <td>{{ slotAd.viber ? slotAd.viberNumber || 'Yes' : 'No' }}</td>
     </tr>
     <tr>
       <td>Telegram</td>
-      <td>{{ slotAd.telegram ? 'Yes':'No' }}</td>
+      <td>{{ slotAd.telegram ? slotAd.telegramNumber || 'Yes' : 'No' }}</td>
     </tr>
     <tr>
       <td>Views</td>
@@ -41,7 +41,7 @@
     </tr>
     <tr>
       <td>Imo</td>
-      <td>{{ slotAd.imo ? 'Yes':'No' }}</td>
+      <td>{{ slotAd.imo ? slotAd.imoNumber || 'Yes' : 'No' }}</td>
     </tr>
     <tr>
       <td> Fake Add </td>

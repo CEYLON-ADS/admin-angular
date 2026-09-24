@@ -109,8 +109,7 @@ export class NewAdvertisement implements OnInit {
   filteredCities: Observable<City[]>;
   previewImages: string[] = [];
   selectedFiles: File[] = [];
-  previewSlips: string[] = [];
-  selectedSlipFiles: File[] = [];
+
   selectedUser: User | null = null;
   selectedCategory: Category | null = null;
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -198,12 +197,15 @@ export class NewAdvertisement implements OnInit {
       type: ['', Validators.required],
       description: ['', Validators.required],
       whatsapp: [false],
+      whatsappNumber: [''],
       telegram: [false],
+      telegramNumber: [''],
       viber: [false],
+      viberNumber: [''],
       imo: [false],
+      imoNumber: [''],
       cities: [[], Validators.required],
-      currentCity: [''],
-      slips: [null, Validators.required]
+
     });
   }
 
@@ -293,34 +295,7 @@ export class NewAdvertisement implements OnInit {
     this.selectedFiles = this.selectedFiles.filter((_, i) => i !== index);
     this.slotForm.get('advertisement')?.setValue(this.selectedFiles.length > 0 ? this.selectedFiles : null);
     this.cdr.markForCheck();
-  }
 
-  onSlipSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const newFiles = Array.from(input.files);
-      this.selectedSlipFiles = [...this.selectedSlipFiles, ...newFiles];
-      this.slotForm.get('slips')?.setValue(this.selectedSlipFiles);
-      this.slotForm.get('slips')?.markAsTouched();
-
-      newFiles.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.previewSlips = [...this.previewSlips, reader.result as string];
-          this.cdr.markForCheck();
-        };
-        reader.readAsDataURL(file);
-      });
-      input.value = '';
-    }
-  }
-
-  removeSlip(index: number): void {
-    this.previewSlips = this.previewSlips.filter((_, i) => i !== index);
-    this.selectedSlipFiles = this.selectedSlipFiles.filter((_, i) => i !== index);
-    this.slotForm.get('slips')?.setValue(this.selectedSlipFiles.length > 0 ? this.selectedSlipFiles : null);
-    this.cdr.markForCheck();
-  }
 
   displayCategoryFn(category: Category | string): string {
     return typeof category === 'string' ? category : category?.categoryName || '';
@@ -403,11 +378,6 @@ export class NewAdvertisement implements OnInit {
       return;
     }
 
-    if (this.selectedSlipFiles.length === 0) {
-      this.snackbarService.openWarning('At least one payment slip attachment is required');
-      this.cdr.markForCheck();
-      return;
-    }
 
     if (this.slotForm.valid && this.selectedCategory && this.selectedUser && this.slotForm.value.type) {
       this.isLoading = true;
@@ -416,9 +386,13 @@ export class NewAdvertisement implements OnInit {
       formData.append('contactName', this.slotForm.value.contactName || '');
       formData.append('contactNumber', this.slotForm.value.contactNumber || '');
       formData.append('whatsapp', this.slotForm.value.whatsapp.toString());
+      if (this.slotForm.value.whatsappNumber) formData.append('whatsappNumber', this.slotForm.value.whatsappNumber);
       formData.append('telegram', this.slotForm.value.telegram.toString());
+      if (this.slotForm.value.telegramNumber) formData.append('telegramNumber', this.slotForm.value.telegramNumber);
       formData.append('viber', this.slotForm.value.viber.toString());
+      if (this.slotForm.value.viberNumber) formData.append('viberNumber', this.slotForm.value.viberNumber);
       formData.append('imo', this.slotForm.value.imo.toString());
+      if (this.slotForm.value.imoNumber) formData.append('imoNumber', this.slotForm.value.imoNumber);
       formData.append('verify', 'false');
       formData.append('categoryID', this.selectedCategory.propertyId);
       formData.append('description', this.slotForm.value.description);
@@ -433,9 +407,7 @@ export class NewAdvertisement implements OnInit {
       this.selectedFiles.forEach((file) => {
         formData.append('images', file);
       });
-      this.selectedSlipFiles.forEach((file) => {
-        formData.append('slips', file);
-      });
+
 
       this.generalAdvertisementService.createAdvertisementByAdmin(formData).subscribe({
         next: (res) => {
@@ -464,9 +436,7 @@ export class NewAdvertisement implements OnInit {
       if (!this.slotForm.value.type) {
         this.snackbarService.openWarning('Please select a valid advertisement type');
       }
-      if (this.selectedSlipFiles.length === 0) {
-        this.snackbarService.openWarning('Please attach a payment slip');
-      }
+
       this.cdr.markForCheck();
     }
   }

@@ -7,11 +7,11 @@
 
     <!-- Tab switcher -->
     <div class="login-tabs" style="display: flex; margin-bottom: 20px; border-bottom: 1px solid #ddd; width: 100%;">
-      <button mat-button style="flex: 1; border-radius: 0; border-bottom: 2px solid transparent; font-weight: 500;" 
+      <button mat-button type="button" style="flex: 1; border-radius: 0; border-bottom: 2px solid transparent; font-weight: 500;" 
               [style.border-bottom-color]="loginMode === 'otp' ? '#e11d48' : 'transparent'" 
               [style.color]="loginMode === 'otp' ? '#e11d48' : '#666'"
               (click)="setMode('otp')">WhatsApp OTP</button>
-      <button mat-button style="flex: 1; border-radius: 0; border-bottom: 2px solid transparent; font-weight: 500;" 
+      <button mat-button type="button" style="flex: 1; border-radius: 0; border-bottom: 2px solid transparent; font-weight: 500;" 
               [style.border-bottom-color]="loginMode === 'password' ? '#e11d48' : 'transparent'" 
               [style.color]="loginMode === 'password' ? '#e11d48' : '#666'"
               (click)="setMode('password')">Password</button>
@@ -65,16 +65,15 @@
           <mat-label>Password</mat-label>
           <input matInput type="password" formControlName="password" placeholder="Enter password" />
         </mat-form-field>
-      </form>
 
-      <button
-        matButton="filled"
-        class="btn-full"
-        type="submit"
-        (click)="onPasswordSubmit()"
-        [disabled]="passwordForm.invalid">
-        Login
-      </button>
+        <button
+          matButton="filled"
+          class="btn-full"
+          type="submit"
+          [disabled]="passwordForm.invalid">
+          Login
+        </button>
+      </form>
     </div>
   </div>
 </div>
