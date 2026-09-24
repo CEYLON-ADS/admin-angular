@@ -295,7 +295,7 @@ export class NewAdvertisement implements OnInit {
     this.selectedFiles = this.selectedFiles.filter((_, i) => i !== index);
     this.slotForm.get('advertisement')?.setValue(this.selectedFiles.length > 0 ? this.selectedFiles : null);
     this.cdr.markForCheck();
-
+  }
 
   displayCategoryFn(category: Category | string): string {
     return typeof category === 'string' ? category : category?.categoryName || '';
@@ -394,13 +394,13 @@ export class NewAdvertisement implements OnInit {
       formData.append('imo', this.slotForm.value.imo.toString());
       if (this.slotForm.value.imoNumber) formData.append('imoNumber', this.slotForm.value.imoNumber);
       formData.append('verify', 'false');
-      formData.append('categoryID', this.selectedCategory.propertyId);
+      formData.append('categoryID', this.selectedCategory!.propertyId);
       formData.append('description', this.slotForm.value.description);
       this.selectedCities.forEach((city) => {
         formData.append('cityIds', city.propertyID);
       });
-      formData.append('userId', this.selectedUser.propertyId);
-      formData.append('mobileNumber', this.selectedUser.mobileNumber || '');
+      formData.append('userId', this.selectedUser!.propertyId);
+      formData.append('mobileNumber', this.selectedUser!.mobileNumber || '');
       formData.append('countryCode', '+94');
       formData.append('adType', this.slotForm.value.type);
       formData.append('serviceFee', this.slotForm.value.serviceFee.toString());
