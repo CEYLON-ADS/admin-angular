@@ -205,6 +205,7 @@ export class NewAdvertisement implements OnInit {
       imo: [false],
       imoNumber: [''],
       cities: [[], Validators.required],
+      currentCity: [''],
 
     });
   }

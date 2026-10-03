@@ -21,7 +21,8 @@ export class NewAds {
   openDialog(): void {
     const dialogRef = this.matDialog.open(NewAdvertisement, {
       width: '600px',
-      disableClose: false
+      disableClose: false,
+      data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
