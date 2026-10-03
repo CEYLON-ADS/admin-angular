@@ -27,7 +27,8 @@
 
   <!-- Districts Table -->
   <div class="table-container" *ngIf="!loading">
-    <table mat-table [dataSource]="dataSource" class="districts-table mat-elevation-z2">
+    <div class="table-responsive" style="overflow-x: auto; width: 100%;">
+<table mat-table [dataSource]="dataSource" class="districts-table mat-elevation-z2">
 
       <!-- Name Column -->
       <ng-container matColumnDef="name">
@@ -54,6 +55,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="setCities(row)" class="district-row"></tr>
 
     </table>
+</div>
 
     <!-- No Data Message -->
     <div *ngIf="dataSource.length === 0" class="no-data">

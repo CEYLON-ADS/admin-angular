@@ -62,7 +62,8 @@
       <mat-spinner diameter="40"></mat-spinner>
     </div>
 
-    <table mat-table [dataSource]="dataSource" class="w-100">
+    <div class="table-responsive" style="overflow-x: auto; width: 100%;">
+<table mat-table [dataSource]="dataSource" class="w-100">
 
       <!-- Account ID Column -->
       <ng-container matColumnDef="accountId">
@@ -116,6 +117,7 @@
         </td>
       </tr>
     </table>
+</div>
 
     <mat-paginator
       [length]="count"

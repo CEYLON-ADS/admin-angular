@@ -19,6 +19,7 @@
   <span class="loading-text">Loading advertisement slots...</span>
 </div>
 
+<div class="table-responsive" style="overflow-x: auto; width: 100%;">
 <table *ngIf="!loading" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="position">
     <th mat-header-cell *matHeaderCellDef> No. </th>
@@ -77,6 +78,7 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+</div>
 
 <mat-paginator
   [pageSize]="size"
