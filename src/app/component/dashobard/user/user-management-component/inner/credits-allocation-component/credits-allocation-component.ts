@@ -24,6 +24,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { AllocateCreditsModalComponent } from './inner-items/allocate-credits-modal/allocate-credits-modal';
+import { ChangePasswordModalComponent } from '../active-users-component/inner-items/change-password-modal/change-password-modal';
 
 @Component({
   selector: 'app-credits-allocation-component',
@@ -171,6 +172,18 @@ export class CreditsAllocationComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.loadAdsAgents();
+      }
+    });
+  }
+
+  public openChangePasswordDialog(user: any): void {
+    this.matDialog.open(ChangePasswordModalComponent, {
+      width: '500px',
+      disableClose: false,
+      data: {
+        userId: user.propertyId,
+        username: user.username,
+        mobileNumber: user.mobileNumber
       }
     });
   }

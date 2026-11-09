@@ -25,6 +25,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { UpdateUser } from '../active-users-component/inner-items/update-user/update-user';
 import { BlackListConformation } from '../active-users-component/inner-items/black-list-conformation/black-list-conformation';
 import { ViewUser } from '../active-users-component/inner-items/view-user/view-user';
+import { ChangePasswordModalComponent } from '../active-users-component/inner-items/change-password-modal/change-password-modal';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -236,6 +237,18 @@ export class BlackListedUsersComponent implements OnInit, OnDestroy {
       width: '500px',
       disableClose: false,
       data: user
+    });
+  }
+
+  openChangePasswordDialog(user: any): void {
+    this.matDialog.open(ChangePasswordModalComponent, {
+      width: '500px',
+      disableClose: false,
+      data: {
+        userId: user.propertyId,
+        username: user.username,
+        mobileNumber: user.mobileNumber
+      }
     });
   }
 

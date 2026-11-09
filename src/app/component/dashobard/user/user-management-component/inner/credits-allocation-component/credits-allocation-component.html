@@ -97,13 +97,23 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
-          <button
-            class="btn btn-sm btn-primary d-inline-flex align-items-center gap-1"
-            (click)="openAllocateDialog(element)"
-          >
-            <mat-icon style="font-size: 16px; width: 16px; height: 16px;">add_circle</mat-icon>
-            Allocate Credits
-          </button>
+          <div class="d-flex align-items-center gap-2">
+            <button
+              class="btn btn-sm btn-primary d-inline-flex align-items-center gap-1"
+              (click)="openAllocateDialog(element)"
+            >
+              <mat-icon style="font-size: 16px; width: 16px; height: 16px;">add_circle</mat-icon>
+              Allocate Credits
+            </button>
+            <button
+              class="btn btn-sm btn-outline-success d-inline-flex align-items-center gap-1"
+              (click)="openChangePasswordDialog(element)"
+              title="Change Password"
+            >
+              <mat-icon style="font-size: 16px; width: 16px; height: 16px;">key</mat-icon>
+              Change PW
+            </button>
+          </div>
         </td>
       </ng-container>
 

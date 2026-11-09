@@ -19,6 +19,12 @@ export class UserService {
       .pipe(map(data => data));
   }
 
+  // Change user password
+  public changeUserPassword(userId: string, newPassword: string): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/${userId}/password`, { newPassword }, { observe: 'response' as 'body' })
+      .pipe(map(data => data));
+  }
+
   // Delete user
   public deleteUser(userId: string): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/${userId}`, { observe: 'response' as 'body' })

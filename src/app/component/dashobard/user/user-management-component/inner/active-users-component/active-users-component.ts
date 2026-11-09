@@ -25,6 +25,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { UpdateUser } from './inner-items/update-user/update-user';
 import { BlackListConformation } from './inner-items/black-list-conformation/black-list-conformation';
 import { ViewUser } from './inner-items/view-user/view-user';
+import { ChangePasswordModalComponent } from './inner-items/change-password-modal/change-password-modal';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -234,6 +235,18 @@ export class ActiveUsersComponent implements OnInit, OnDestroy {
       width: '500px',
       disableClose: false,
       data: user
+    });
+  }
+
+  openChangePasswordDialog(user: any): void {
+    this.matDialog.open(ChangePasswordModalComponent, {
+      width: '500px',
+      disableClose: false,
+      data: {
+        userId: user.propertyId,
+        username: user.username,
+        mobileNumber: user.mobileNumber
+      }
     });
   }
 
