@@ -235,8 +235,9 @@ export class NewAdvertisement implements OnInit {
     const value = (event.value || '').trim();
     if (value) {
       const city = this.cities.find(c => c.city.toLowerCase() === value.toLowerCase());
-      if (city && !this.selectedCities.some(c => c.propertyID === city.propertyID)) {
-        this.selectedCities = [...this.selectedCities, city];
+      const cityToAdd: City = city || { propertyID: value, city: value, district: '' };
+      if (!this.selectedCities.some(c => c.city.toLowerCase() === cityToAdd.city.toLowerCase())) {
+        this.selectedCities = [...this.selectedCities, cityToAdd];
         this.slotForm.get('cities')?.setValue(this.selectedCities);
         this.slotForm.get('cities')?.markAsTouched();
       }
@@ -398,7 +399,7 @@ export class NewAdvertisement implements OnInit {
       formData.append('categoryID', this.selectedCategory!.propertyId);
       formData.append('description', this.slotForm.value.description);
       this.selectedCities.forEach((city) => {
-        formData.append('cityIds', city.propertyID);
+        formData.append('cityIds', city.city || city.propertyID);
       });
       formData.append('userId', this.selectedUser!.propertyId);
       formData.append('mobileNumber', this.selectedUser!.mobileNumber || '');
